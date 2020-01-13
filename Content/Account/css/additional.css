@@ -1,0 +1,56 @@
+﻿.login100-form-btn::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    top: 0;
+    left: 0;
+    background: none;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+    opacity: 0;
+}
+
+.login100-form-btn:hover {
+    background-color: black;
+    color: #03c42b;
+}
+
+.container-login100::before {
+    background: #03c42b;
+    background: -webkit-linear-gradient(bottom, #03c42b, #000);
+    background: -o-linear-gradient(bottom, #03c42b, #000);
+    background: -moz-linear-gradient(bottom, #03c42b, #000);
+    background: linear-gradient(bottom, #03c42b, #000);
+    opacity: 0.8;
+}
+.input100:focus + .focus-input100 + .symbol-input100 {
+    color: #03c42b;
+    padding-left: 18px;
+}
+
+.wrap-login100{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 30px;
+}
+/*responsive*/
+.limiter{
+    position: relative;
+}
+
+.flex-align-self-fe{
+    align-self: flex-end;
+}
+body{
+    height:auto;
+    min-height: 100%;
+    position: relative;
+}

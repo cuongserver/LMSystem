@@ -1,0 +1,183 @@
+﻿@using LMSystem.Resource
+@using LMSystem.Common
+@model IEnumerable<LMSystem.Models.User>
+@{
+    int recordCount = (int)ViewData["RecordCount"];
+    int pageSize = (int)ViewData["PageSize"];
+    int pageIndex = (int)ViewData["PageIndex"];
+    int pageCount = (int)Math.Ceiling((double)recordCount / pageSize);
+    int pageGroupSize = 3;
+    int pageGroupIndex = (int)Math.Ceiling((double)pageIndex / pageGroupSize);
+    int upperPageGroupIndex = (int)Math.Ceiling((double)pageCount / pageGroupSize);
+    int upperVisiblePageIndex = (pageGroupIndex * pageGroupSize < pageCount) ?
+        pageGroupIndex * pageGroupSize : pageCount;
+    int lowerVisiblePageIndex = (pageGroupIndex * pageGroupSize > 4) ?
+        (pageGroupIndex - 1) * pageGroupSize + 1 : 1;
+    var count = 1;
+}
+
+<h2>@RegionSetting.Home_UserMaint_Link2</h2>
+<div class="summary">
+    <table class="table table-condensed table-hover text-center small">
+        <thead>
+            <tr class="row">
+                <th class="text-center">#</th>
+                <th class="text-center"></th>
+                <th class="text-center">@Html.LabelFor(model => model.FirstOrDefault().userID)</th>
+                <th class="text-center">@Html.LabelFor(model => model.FirstOrDefault().userName)</th>
+                <th class="text-center">@Html.LabelFor(model => model.FirstOrDefault().deptName)</th>
+                <th class="text-center">@Html.LabelFor(model => model.FirstOrDefault().rankDescription)</th>
+                <th class="text-center">@Html.LabelFor(model => model.FirstOrDefault().userEmail)</th>
+                <th class="text-center">@Html.LabelFor(model => model.FirstOrDefault().userIsActive)</th>
+                <th class="text-center">@Html.LabelFor(model => model.FirstOrDefault().userFailedLoginAttempt)</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model)
+                {
+                        <tr class="row">
+                            <td>
+                                <div>@((pageIndex - 1) * pageSize + count)</div>
+                            </td>
+                            <td>
+                                <div class="row">
+                                    <a class="edit-link" title="@RegionSetting.Details_EditLink_Caption" href="#" view-url="@Url.Action("Details", "User", new { userid = item.userID })">
+                                        <span class="glyphicon glyphicon-wrench glyphicon-glow"></span>
+                                    </a>
+                                    <a class="udpw-link" title="@RegionSetting.Details_UpdatePasswordLink_Caption" href="#" view-url="@Url.Action("UpdatePassword", "User", new { userid = item.userID })">
+                                        <span class="glyphicon glyphicon-lock glyphicon-glow"></span>
+                                    </a>
+                                </div>
+                            </td>
+                            <td>
+                                <div>@Html.DisplayFor(modelItem => item.userID)</div>
+                            </td>
+                            <td>
+                                <div>@Html.DisplayFor(modelItem => item.userName)</div>
+                            </td>
+                            <td>
+                                <div>@Html.DisplayFor(modelItem => item.deptName)</div>
+                            </td>
+                            <td>
+                                <div>@Html.DisplayFor(modelItem => item.rankDescription)</div>
+                            </td>
+                            <td>
+                                <div>@Html.DisplayFor(modelItem => item.userEmail)</div>
+                            </td>
+                            <td>
+                                <div>@(item.userIsActive ? RegionSetting.booleanYes0 : RegionSetting.booleanNo0)</div>
+                            </td>
+                            <td>
+                                <div>@Html.DisplayFor(modelItem => item.userFailedLoginAttempt)</div>
+                            </td>
+
+
+                        </tr>
+                    count += 1;
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+<div id="pager" class="pager-bar" with-action="/User/Overview">
+    @{if (pageCount > 1)
+        {
+            <ul class="pagination">
+                <li page="1" class="@(pageIndex == 1 ? "disabled": string.Empty)">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-backward"></span>
+                    </a>
+                </li>
+
+                @{
+                    if (1 != pageIndex)
+                    {
+                        <li class="" page="@(pageIndex-1)">
+                            <a class="" href="#">
+                                <span class="glyphicon glyphicon-menu-left"></span>
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="disabled">
+                            <a class="" href="#">
+                                <span class="glyphicon glyphicon-menu-left"></span>
+                            </a>
+                        </li>
+
+                    }
+
+                    if (pageGroupIndex > 1)
+                    {
+                        <li class="disabled" page="">
+                            <a class="" href="#">
+                                ...
+                            </a>
+                        </li>
+                    }
+
+                    for (int i = lowerVisiblePageIndex; i < upperVisiblePageIndex + 1; i += 1)
+                    {
+                        if (i == pageIndex)
+                        {
+                            <li class="absolute-page active" page="@i"><a class="" href="#">@i</a></li>
+                        }
+                        else
+                        {
+
+                            <li class="absolute-page" page="@i">
+                                <a class="" href="#">
+                                    @i
+                                </a>
+                            </li>
+                        }
+                    }
+
+                    if (pageGroupIndex < upperPageGroupIndex)
+                    {
+                        <li class="disabled" page="">
+                            <a class="" href="#">
+                                ...
+                            </a>
+                        </li>
+                    }
+
+                    if (pageCount != pageIndex)
+                    {
+                        <li class="" page="@(pageIndex+1)">
+                            <a class="" href="#">
+                                <span class="glyphicon glyphicon-menu-right"></span>
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="disabled">
+                            <a class="" href="#">
+                                <span class="glyphicon glyphicon-menu-right"></span>
+                            </a>
+                        </li>
+                    }
+
+                }
+                <li page="@pageCount" class="@(pageIndex == pageCount ? "disabled": string.Empty)">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-forward"></span>
+                    </a>
+                </li>
+            </ul>
+            <div class="go-to-page">
+                @RegionSetting.GotoPage
+                <input class="direct-to-page" />
+                <button>
+                    <span class="glyphicon glyphicon-circle-arrow-right"></span>
+                </button>
+            </div>
+            <p>@ViewData["NowDisplaying"]</p>
+        }
+    }
+</div>

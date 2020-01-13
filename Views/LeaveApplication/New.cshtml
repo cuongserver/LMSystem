@@ -1,0 +1,174 @@
+﻿@using LMSystem.Resource
+@using LMSystem.Common
+@using LMSystem.Models
+@model LMSystem.Models.LeaveApplication
+<h4>@RegionSetting.Home_LeaveManageLink_Apply</h4>
+
+@{
+    var ReasonList = (List<LeaveReason>)ViewData["ReasonList"];
+    var CommonParam = (Dictionary<string, string>)ViewData["CommonParam"];
+    var WeeklyDayOff = (List<string>)ViewData["WeeklyDayOff"];
+    var PublicHoliday = (List<string>)ViewData["PublicHoliday"];
+}
+
+
+<form id="newApp" class="form-group" method="post" action="/LeaveApplication/SendRequest/">
+    @Html.AntiForgeryToken()
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">@RegionSetting.appID :</label>
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.appID)
+            @Html.HiddenFor(model => model.appID)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">@RegionSetting.initDate :</label>
+        <div class="col-sm-10">
+            @Model.initDate.ToString("yyyy - MMM - dd")
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">@RegionSetting.User_AddNew_fieldCaption_userName :</label>
+        <div class="col-sm-10">
+            <strong>
+                @Html.DisplayFor(model => model.userName)
+            </strong>
+            (@Html.DisplayFor(model => model.userID))
+            @Html.HiddenFor(model => model.userID)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">@RegionSetting.applicationProgress :</label>
+        <div class="col-sm-10">
+            <strong>
+                @Html.DisplayFor(model => model.applicationProgress)
+            </strong>
+        </div>
+    </div>
+    <hr />
+    <div class="form-group row">
+        <div class="col-sm-5 row">
+            <label class="col-sm-4 col-form-label">@RegionSetting.deptName :</label>
+            <div class="col-sm-7">
+                <strong>
+                    @Html.DisplayFor(model => model.deptName)
+                </strong>
+                (@Html.DisplayFor(model => model.deptCode))
+                @Html.HiddenFor(model => model.deptCode)
+            </div>
+        </div>
+
+        <div class="col-sm-5 row">
+            <label class="col-sm-4 col-form-label">@RegionSetting.rankDescription :</label>
+            <div class="col-sm-7">
+                <strong>
+                    @Html.DisplayFor(model => model.rankDescription)
+                </strong>
+                (@Html.DisplayFor(model => model.rankCode))
+                @Html.HiddenFor(model => model.rankCode)
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label">@RegionSetting.reasonDetail :</label>
+        <div class="col-sm-5 validate-input lg-margin-validate" data-validate="@GlobalObject.GetModelErrorMessage("reasonCode", ViewData)">
+            <select name="reasonCode" class="form-control row">
+                <option value="">@RegionSetting.reasonDetail_None</option>
+                @{
+                    foreach (var reason in ReasonList)
+                    {
+                        <option value="@reason.reasonCode" @(Model.reasonCode == reason.reasonCode ? "selected" : "")>@reason.reasonDetail</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-4 row">
+            <label class="col-sm-4 col-form-label">@RegionSetting.timeStart :</label>
+            <div class="col-sm-8 validate-input sm-margin-validate" data-validate="@GlobalObject.GetModelErrorMessage("timeStart", ViewData)">
+                <input class="form-control" name="timeStart" autocomplete="off" type="text" id="from-time" placeholder="yyyy/MM/dd hh:mm" value="@Model.timeStart">
+            </div>
+        </div>
+
+        <div class="col-sm-4 row">
+            <label class="col-sm-4 col-form-label">@RegionSetting.timeEnd :</label>
+            <div class="col-sm-8 validate-input sm-margin-validate" data-validate="@GlobalObject.GetModelErrorMessage("timeEnd", ViewData)">
+                <input class="form-control" name="timeEnd" autocomplete="off" type="text" id="to-time" placeholder="yyyy/MM/dd hh:mm" value="@Model.timeEnd">
+            </div>
+        </div>
+
+        <div class="col-sm-4 row" id="hourRequired-container">
+            <label class="col-sm-8 col-form-label">@RegionSetting.hourRequired :</label>
+            <div class="col-sm-4">
+                <input class="form-control" name="hourRequired" autocomplete="off" id="requiredHrs" type="text" value="@Model.hourRequired" disabled>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-4 row">
+            <label class="col-sm-12 col-form-label">@RegionSetting.applicantDesc :</label>
+        </div>
+        <div class="col-sm-8">
+
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-8">
+            <textarea class="form-control" name="applicantDesc" rows="3" maxlength="200" placeholder="<200 chars max>">@Model.applicantDesc</textarea>
+        </div>
+        <div class="col-sm-4">
+
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-3">
+            <button type="submit" class="btn btn-bg-dark home-logout-button btn-block">@RegionSetting.sendRequest</button>
+        </div>
+    </div>
+</form>
+
+
+
+<link rel="stylesheet" type="text/css" href="~/Content/jquery.datetimepicker.css" />
+<script src="~/Scripts/jquery.datetimepicker.full.min.js"></script>
+<script>
+    /*jslint browser:true*/
+    /*global jQuery, document*/
+    jQuery(document).ready(function () {
+        'use strict';
+
+        jQuery('#filter-date, #from-time, #to-time').datetimepicker({
+            theme: 'dark',
+            allowTimes: ['08:30', '09:30', '10:30', '11:30', '12:30', '13:30', '14:30', '15:30', '16:30', '17:30']
+        });
+        jQuery('.xdsoft_today_button').remove();
+
+        var hrs = $('#requiredHrs').val();
+        if (hrs == "0" || hrs == "" || hrs == undefined || hrs == null) {
+            $('#hourRequired-container').addClass('disp-none');
+        };
+
+        checkInTime = "@CommonParam["checkIn"]";
+        checkOutTime = "@CommonParam["checkOut"]";
+        breakStartTime = "@CommonParam["breakStart"]";
+        breakEndTime = "@CommonParam["breakEnd"]";
+        var myArray1 = [];
+        @foreach(string weekDay in WeeklyDayOff)
+        {
+            @: myArray1.push("@weekDay");
+        }
+        weeklyDayOff = myArray1;
+        var myArray2 = [];
+        @foreach(string holiday in PublicHoliday)
+        {
+            @: myArray2.push("@holiday");
+        }
+        publicDayOff = myArray2;
+    });
+</script>

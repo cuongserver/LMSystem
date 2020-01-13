@@ -1,0 +1,101 @@
+﻿@using LMSystem.Common
+@using LMSystem.Resource
+@using System.Web
+@model LMSystem.Models.UserIdentity
+@{
+    Layout = null;
+    Random random = new Random();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login V12</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, height=device-height" />
+    <link rel="icon" type="image/png" href="~/Content/images/icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Account/vendor/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Account/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Account/fonts/Linearicons-Free-v1.0.0/icon-font.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Account/vendor/animate/animate.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Account/vendor/css-hamburgers/hamburgers.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Account/vendor/select2/select2.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Account/css/util.css?ver=2" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Account/css/main.css?ver=2" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Account/css/additional.css?ver=@random.Next(1, 1000000)" />
+    <link href="~/Content/loadingMask.css?ver=@random.Next(1, 1000000)" rel="stylesheet">
+</head>
+<body>
+
+    <div class="limiter">
+        <div class="container-login100" style="background-image: url('/Content/Account/images/img-01.jpg');">
+            <div class="wrap-login100 p-t-30 p-b-30 flex-align-self-fe">
+                <form class="login100-form validate-form" action="/@ViewBag.DisplayLanguage/Account/Login/" method="post">
+                    @Html.AntiForgeryToken()
+                    <span class="login100-form-title p-t-20 p-b-45">
+                        @RegionSetting.Account_AppName
+                    </span>
+
+                    <div class="wrap-input100 validate-input m-b-10" data-validate="@GlobalObject.GetModelErrorMessage("userID",ViewData)">
+                        <input id="userID" class="input100" type="text" name="userID"
+                               placeholder="@RegionSetting.Account_UsernamePlaceholder">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-user"></i>
+                        </span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-10" data-validate="@GlobalObject.GetModelErrorMessage("userPassword",ViewData)">
+                        <input id="userPassword" class="input100" type="password" name="userPassword"
+                               placeholder="@RegionSetting.Account_PasswordPlaceholder">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-lock"></i>
+                        </span>
+                    </div>
+
+                    <div class="container-login100-form-btn p-t-10">
+                        <button class="login100-form-btn" type="submit">
+                            @RegionSetting.Account_LoginButtonCaption
+                        </button>
+                    </div>
+
+                    <div class="text-center w-full p-t-25">
+                        <a href="#" class="txt1">
+                            @RegionSetting.Account_Forgot
+                        </a>
+                    </div>
+                </form>
+
+            </div>
+            <div class="text-center w-full flex-align-self-fe">
+                <span class="txt1">
+                    @RegionSetting.Account_DisplayIn
+                    <a class="txt1" href="/vi/Account/Login/">
+                        Tiếng Việt
+                    </a>
+                    |
+                    <a class="txt1" href="/en/Account/Login/">
+                        English
+                    </a>
+                </span>
+            </div>
+        </div>
+
+    </div>
+    <div id="loading-mask" class="loading-mask">
+        <div class="loader">
+            <div>
+                <p class="loading-message">@RegionSetting.Loading_Mask_Content</p>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Content/Account/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Content/Account/vendor/select2/select2.min.js"></script>
+    <script src="~/Content/Account/js/alternative.js?ver=48"></script>
+    <script src="~/Scripts/loadingMask.js?ver=@random.Next(1, 1000000)"></script>
+
+</body>
+</html>

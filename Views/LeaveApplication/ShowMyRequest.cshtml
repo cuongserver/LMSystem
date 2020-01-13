@@ -1,0 +1,492 @@
+﻿@using LMSystem.Resource
+@using LMSystem.Common
+@using LMSystem.HTMLHelper
+@using LMSystem.Models
+@model IEnumerable<LMSystem.Models.LeaveApplication>
+@{
+    int recordCount = (int)ViewData["RecordCount"];
+    int pageSize = (int)ViewData["PageSize"];
+    int pageIndex = (int)ViewData["PageIndex"];
+    int pageCount = (int)Math.Ceiling((double)recordCount / pageSize);
+    int pageGroupSize = 3;
+    int pageGroupIndex = (int)Math.Ceiling((double)pageIndex / pageGroupSize);
+    int upperPageGroupIndex = (int)Math.Ceiling((double)pageCount / pageGroupSize);
+    int upperVisiblePageIndex = (pageGroupIndex * pageGroupSize < pageCount) ?
+        pageGroupIndex * pageGroupSize : pageCount;
+    int lowerVisiblePageIndex = (pageGroupIndex * pageGroupSize > 4) ?
+        (pageGroupIndex - 1) * pageGroupSize + 1 : 1;
+    var count = 1;
+    var DeptList = (List<Department>)ViewData["DeptList"];
+    var RankList = (List<Rank>)ViewData["RankList"];
+    string[] filterClass = { "filter0", "filter1", "filter2", "filter3", "filter4", "filter5" };
+    string filterName = "filter";
+
+    //var dict = (Dictionary<string, string>)ViewData["FilterParam"];
+}
+
+<h2>@RegionSetting.Home_LeaveManageLink_ShowAll</h2>
+@*<div class="pos-f-t">
+    <div class="collapse filter-panel" id="navbarToggleExternalContent">
+        <div class="p-b-3px">
+            <div class="col-sm-4 p-l-r-2px">
+                <div class="col-sm-12">
+                    <input name="@filterName" type="checkbox" value="false" filterClass="@filterClass[0]" />
+                    <label>
+                        @RegionSetting.appID
+                    </label>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-5 p-l-r-2px">
+                        @ExtraHTMLHelpers.OperatorDropdown(filterClass[0], filterName)
+                    </div>
+                    <div class="col-sm-7 p-l-r-2px">
+                        <input name="@filterName" class="p-b-0px h-23px @filterClass[0]" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 p-l-r-2px">
+                <div class="col-sm-12">
+                    <input name="@filterName" type="checkbox" value="false" filterClass="@filterClass[1]" />
+                    <label>
+                        @RegionSetting.deptName
+                    </label>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-5 p-l-r-2px">
+                        @ExtraHTMLHelpers.OperatorDropdown(filterClass[1], filterName)
+                    </div>
+                    <div class="col-sm-7 p-l-r-2px">
+                        <select name="@filterName" class="h-23px text-size-10 @filterClass[1]" autocomplete="off" type="text">
+                            @{
+                                <option style="display:none;"></option>
+                                foreach (var dept in DeptList)
+                                {
+                                    <option value="@dept.deptCode">@dept.deptName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 p-l-r-2px">
+                <div class="col-sm-12">
+                    <input name="@filterName" type="checkbox" value="false" filterClass="@filterClass[2]" />
+                    <label>
+                        @RegionSetting.User_AddNew_fieldCaption_userName
+                    </label>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-5 p-l-r-2px">
+                        @ExtraHTMLHelpers.OperatorDropdown(filterClass[2], filterName)
+                    </div>
+                    <div class="col-sm-7 p-l-r-2px">
+                        <input name="@filterName" class="p-b-0px h-23px @filterClass[2]" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-b-3px">
+            <div class="col-sm-4 p-l-r-2px">
+                <div class="col-sm-12">
+                    <input name="@filterName" type="checkbox" value="false" filterClass="@filterClass[3]" />
+                    <label>
+                        @RegionSetting.approverAction
+                    </label>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-5 p-l-r-2px">
+                        @ExtraHTMLHelpers.OperatorDropdown(filterClass[3], filterName)
+                    </div>
+                    <div class="col-sm-7 p-l-r-2px">
+                        <input name="@filterName" class="p-b-0px h-23px @filterClass[3]" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 p-l-r-2px">
+                <div class="col-sm-12">
+                    <input name="@filterName" type="checkbox" value="false" filterClass="@filterClass[4]" />
+                    <label>
+                        @RegionSetting.applicationProgress
+                    </label>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-5 p-l-r-2px">
+                        @ExtraHTMLHelpers.OperatorDropdown(filterClass[4], filterName)
+                    </div>
+                    <div class="col-sm-7 p-l-r-2px">
+                        <input name="@filterName" class="p-b-0px h-23px @filterClass[4]" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 p-l-r-2px">
+                <div class="col-sm-12">
+                    <input name="@filterName" type="checkbox" value="false" filterClass="@filterClass[5]" />
+                    <label>
+                        @RegionSetting.systemStatus
+                    </label>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-5 p-l-r-2px">
+                        @ExtraHTMLHelpers.OperatorDropdown(filterClass[5], filterName)
+                    </div>
+                    <div class="col-sm-7 p-l-r-2px">
+                        <input name="@filterName" class="p-b-0px h-23px @filterClass[5]" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-b-3px p-b-10px">
+            <button class="navbar-toggler" id="refreshList">
+                <span class="glyphicon glyphicon-refresh"></span>
+            </button>
+        </div>
+    </div>
+    <div class="navbar navbar-dark bg-dark">
+        <button id="toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <div class="menu-icon-stripe-container">
+                <div class="menu-icon-stripe"></div>
+                <div class="menu-icon-stripe"></div>
+                <div class="menu-icon-stripe"></div>
+            </div>
+            <div class="menu-icon-stripe-container">
+                @RegionSetting.filter
+            </div>
+        </button>
+    </div>
+</div>*@
+@{if (recordCount > 0)
+    {
+        <div id="pendingApp">
+            <button class="navbar-toggler" id="download-list-my-apps" with-action="/LeaveApplication/ExportMyAppsToCsv">
+                <span class="glyphicon glyphicon-save"></span>
+            </button>
+            <br />
+            <table class="table table-condensed table-hover text-center small">
+                <thead>
+                    <tr class="row">
+                        <th class="text-center">#</th>
+                        @*<th class="text-center"></th>*@
+                        <th class="text-center">@RegionSetting.appID</th>
+                        <th class="text-center">@RegionSetting.User_AddNew_fieldCaption_userName</th>
+                        <th class="text-center">@RegionSetting.deptName</th>
+                        <th class="text-center">@RegionSetting.rankDescription</th>
+                        <th class="text-center">@RegionSetting.reasonDetail</th>
+                        <th class="text-center">@RegionSetting.applicantDesc</th>
+                        <th class="text-center">@RegionSetting.timeStart</th>
+                        <th class="text-center">@RegionSetting.timeEnd</th>
+                        <th class="text-center">@RegionSetting.hourRequired</th>
+                        <th class="text-center">@RegionSetting.validationStatus</th>
+                        <th class="text-center">@RegionSetting.applicationProgress</th>
+                        <th class="text-center">@RegionSetting.approverAction</th>
+                        <th class="text-center">@RegionSetting.approverDesc</th>
+                        <th class="text-center">@RegionSetting.approverUserID</th>
+                        <th class="text-center">@RegionSetting.systemStatus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var item in Model)
+                        {
+                            <tr class="row">
+                                <td>
+                                    <div>@((pageIndex - 1) * pageSize + count)</div>
+                                </td>
+                                @*<td>
+                                    <div class="@((item.systemStatus == "disabled"|| item.approverAction == "Reject") ? "is-nope stamp" : string.Empty)" id="@item.appID" result-terminate="@RegionSetting.terminated" result-reject="@RegionSetting.reject">
+                                        @{
+                                            if (item.applicationProgress == "submitted" || item.applicationProgress == "initialized" ||
+                                                            (item.approverAction == "Approve" && item.systemStatus == "normal"))
+                                            {
+                                                <form action="/LeaveApplication/TerminateApp" method="post">
+                                                    <input type="hidden" value="@item.appID" name="appID">
+                                                    <a class="terminate-link" title="@RegionSetting.terminate" href="#">
+                                                        <span class="glyphicon glyphicon glyphicon-trash glyphicon-glow large-size-icon"></span>
+                                                    </a>
+                                                </form>
+                                            }
+                                            if (item.approverAction == "Reject")
+                                            {
+                                                @RegionSetting.reject
+                                            }
+
+                                            if (item.systemStatus == "disabled")
+                                            {
+                                                @RegionSetting.terminated
+                                            }
+
+                                        }
+
+
+                                    </div>
+                                </td>*@
+                                <td>
+                                    <div>@(item.appID)</div>
+                                </td>
+                                <td>
+                                    <div>@(item.userName)</div>
+                                </td>
+                                <td>
+                                    <div>@(item.deptName)</div>
+                                </td>
+                                <td>
+                                    <div>@(item.rankDescription)</div>
+                                </td>
+                                <td>
+                                    <div>@(item.reasonDetail)</div>
+                                </td>
+                                <td>
+                                    <div>@(item.applicantDesc)</div>
+                                </td>
+                                <td>
+                                    <div>@(item.timeStart)</div>
+                                </td>
+                                <td>
+                                    <div>@(item.timeEnd)</div>
+                                </td>
+                                <td>
+                                    <div>@(item.hourRequired)</div>
+                                </td>
+                                <td>
+                                    <div>@(item.validationStatus)</div>
+                                </td>
+                                <td>
+                                    <div>@(item.applicationProgress)</div>
+                                </td>
+                                <td>
+                                    <div>@(item.approverAction)</div>
+                                </td>
+                                <td>
+                                    <div>@(item.approverDesc)</div>
+                                </td>
+                                <td>
+                                    <div>@(item.approverUserID)</div>
+                                </td>
+                                <td>
+                                    <div>@(item.systemStatus)</div>
+                                </td>
+                            </tr>
+                            count += 1;
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    }
+
+    if (recordCount == 0)
+    {
+        @RegionSetting.nothingFound
+    }
+}
+<div id="pager" class="pager-bar" with-action="/LeaveApplication/ShowMine">
+    @{if (pageCount > 1 && recordCount > 0)
+        {
+            <ul class="pagination">
+                <li page="1" class="@(pageIndex == 1 ? "disabled": string.Empty)">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-backward"></span>
+                    </a>
+                </li>
+
+                @{
+                    if (1 != pageIndex)
+                    {
+                        <li class="" page="@(pageIndex-1)">
+                            <a class="" href="#">
+                                <span class="glyphicon glyphicon-menu-left"></span>
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="disabled">
+                            <a class="" href="#">
+                                <span class="glyphicon glyphicon-menu-left"></span>
+                            </a>
+                        </li>
+
+                    }
+
+                    if (pageGroupIndex > 1)
+                    {
+                        <li class="disabled" page="">
+                            <a class="" href="#">
+                                ...
+                            </a>
+                        </li>
+                    }
+
+                    for (int i = lowerVisiblePageIndex; i < upperVisiblePageIndex + 1; i += 1)
+                    {
+                        if (i == pageIndex)
+                        {
+                            <li class="absolute-page active" page="@i"><a class="" href="#">@i</a></li>
+                        }
+                        else
+                        {
+
+                            <li class="absolute-page" page="@i">
+                                <a class="" href="#">
+                                    @i
+                                </a>
+                            </li>
+                        }
+                    }
+
+                    if (pageGroupIndex < upperPageGroupIndex)
+                    {
+                        <li class="disabled" page="">
+                            <a class="" href="#">
+                                ...
+                            </a>
+                        </li>
+                    }
+
+                    if (pageCount != pageIndex)
+                    {
+                        <li class="" page="@(pageIndex+1)">
+                            <a class="" href="#">
+                                <span class="glyphicon glyphicon-menu-right"></span>
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="disabled">
+                            <a class="" href="#">
+                                <span class="glyphicon glyphicon-menu-right"></span>
+                            </a>
+                        </li>
+                    }
+
+                }
+                <li page="@pageCount" class="@(pageIndex == pageCount ? "disabled": string.Empty)">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-forward"></span>
+                    </a>
+                </li>
+            </ul>
+            <div class="go-to-page">
+                @RegionSetting.GotoPage
+                <input class="direct-to-page" />
+                <button>
+                    <span class="glyphicon glyphicon-circle-arrow-right"></span>
+                </button>
+            </div>
+            <p>@ViewData["NowDisplaying"]</p>
+        }
+    }
+</div>
+
+@*<script>
+    jQuery(document).ready(function(){
+        $("#pager").attr("filter-param", filterString);
+        @{
+            if(dict != null)
+            {
+                @: var check0 = '@dict["check0"]';
+                @: var check1 = '@dict["check1"]';
+                @: var check2 = '@dict["check2"]';
+                @: var check3 = '@dict["check3"]';
+                @: var check4 = '@dict["check4"]';
+                @: var check5 = '@dict["check5"]';
+
+                @: var op0 = '@dict["op0"]';
+                @: var op1 = '@dict["op1"]';
+                @: var op2 = '@dict["op2"]';
+                @: var op3 = '@dict["op3"]';
+                @: var op4 = '@dict["op4"]';
+                @: var op5 = '@dict["op5"]';
+
+                @: var criteria0 = '@dict["criteria0"]';
+                @: var criteria1 = '@dict["criteria1"]';
+                @: var criteria2 = '@dict["criteria2"]';
+                @: var criteria3 = '@dict["criteria3"]';
+                @: var criteria4 = '@dict["criteria4"]';
+                @: var criteria5 = '@dict["criteria5"]';
+
+                   @: if (check0 == 'True') {
+                        @: $('[name=@filterName]').eq(0).prop('checked', true);
+                        @: $('[name=@filterName]').eq(0).val(true);
+                        @: $('[name=@filterName]').eq(1).val(op0);
+                        @: $('[name=@filterName]').eq(2).val(criteria0);
+                   @:}
+                   @:else{
+                        @: $('[name=@filterName]').eq(0).prop('checked', false);
+                        @: $('[name=@filterName]').eq(1).addClass("not-used").attr("disabled", "disabled");
+                        @: $('[name=@filterName]').eq(2).addClass("not-used").attr("disabled", "disabled");
+                   @:}
+
+                   @: if (check1 == 'True') {
+                        @: $('[name=@filterName]').eq(3).prop('checked', true);
+                        @: $('[name=@filterName]').eq(3).val(true);
+                        @: $('[name=@filterName]').eq(4).val(op1);
+                        @: $('[name=@filterName]').eq(5).val(criteria1);
+                   @:}
+                   @:else{
+                        @: $('[name=@filterName]').eq(3).prop('checked', false);
+                        @: $('[name=@filterName]').eq(4).addClass("not-used").attr("disabled", "disabled");
+                        @: $('[name=@filterName]').eq(5).addClass("not-used").attr("disabled", "disabled");
+                   @:}
+
+                   @: if (check2 == 'True') {
+                        @: $('[name=@filterName]').eq(6).prop('checked', true);
+                        @: $('[name=@filterName]').eq(6).val(true);
+                        @: $('[name=@filterName]').eq(7).val(op2);
+                        @: $('[name=@filterName]').eq(8).val(criteria2);
+                   @:}
+                   @:else{
+                        @: $('[name=@filterName]').eq(6).prop('checked', false);
+                        @: $('[name=@filterName]').eq(7).addClass("not-used").attr("disabled", "disabled");
+                        @: $('[name=@filterName]').eq(8).addClass("not-used").attr("disabled", "disabled");
+                   @:}
+
+                   @: if (check3 == 'True') {
+                        @: $('[name=@filterName]').eq(9).prop('checked', true);
+                        @: $('[name=@filterName]').eq(9).val(true);
+                        @: $('[name=@filterName]').eq(10).val(op3);
+                        @: $('[name=@filterName]').eq(11).val(criteria3);
+                   @:}
+                   @:else{
+                        @: $('[name=@filterName]').eq(9).prop('checked', false);
+                        @: $('[name=@filterName]').eq(10).addClass("not-used").attr("disabled", "disabled");
+                        @: $('[name=@filterName]').eq(11).addClass("not-used").attr("disabled", "disabled");
+                   @:}
+
+                   @: if (check4 == 'True') {
+                        @: $('[name=@filterName]').eq(12).prop('checked', true);
+                        @: $('[name=@filterName]').eq(12).val(true);
+                        @: $('[name=@filterName]').eq(13).val(op4);
+                        @: $('[name=@filterName]').eq(14).val(criteria4);
+                   @:}
+                   @:else{
+                        @: $('[name=@filterName]').eq(12).prop('checked', false);
+                        @: $('[name=@filterName]').eq(13).addClass("not-used").attr("disabled", "disabled");
+                        @: $('[name=@filterName]').eq(14).addClass("not-used").attr("disabled", "disabled");
+                   @:}
+
+                   @: if (check5 == 'True') {
+                        @: $('[name=@filterName]').eq(15).prop('checked', true);
+                        @: $('[name=@filterName]').eq(15).val(true);
+                        @: $('[name=@filterName]').eq(16).val(op5);
+                        @: $('[name=@filterName]').eq(17).val(criteria5);
+                   @:}
+                   @:else{
+                        @: $('[name=@filterName]').eq(15).prop('checked', false);
+                        @: $('[name=@filterName]').eq(16).addClass("not-used").attr("disabled", "disabled");
+                        @: $('[name=@filterName]').eq(17).addClass("not-used").attr("disabled", "disabled");
+                   @:}
+                   @: $("#toggler").click();
+            }
+        }
+        if (filterString == defaultString) {
+            $('input[type=checkbox]').prop('checked', false);
+            $("[name=" + "@filterName" + "]").addClass("not-used").attr("disabled", "disabled");
+            $('input[type=checkbox]').removeClass("not-used").removeAttr("disabled");
+        };
+
+
+    });
+</script>*@

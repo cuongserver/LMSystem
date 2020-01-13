@@ -1,0 +1,49 @@
+﻿@using LMSystem.Resource
+@using LMSystem.Common
+@model IEnumerable<LMSystem.Models.PublicHoliday>
+@{
+    int count = 1;
+}
+
+<h2>@RegionSetting.listPublicHoliday</h2>
+<div id="list-holiday" class="summary">
+    <table class="table table-condensed table-hover text-center small">
+        <thead>
+            <tr class="row">
+                <th class="text-center">#</th>
+                <th class="text-center"></th>
+                <th class="text-center">@RegionSetting.date</th>
+                <th class="text-center">@RegionSetting.description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model)
+                {
+                    <tr class="row" id="@item.holiday.Replace("/","-")">
+                        <td>
+                            <div>@count</div>
+                        </td>
+                        <td>
+                            <div>
+                                <form action="/SystemSetting/DisablePublicHoliday" method="post">
+                                    <input type="hidden" value="@item.holiday" name="holiday">
+                                    <a class="terminate-link" href="#">
+                                        <span class="glyphicon glyphicon glyphicon-trash glyphicon-glow large-size-icon"></span>
+                                    </a>
+                                </form>
+                            </div>
+                        </td>
+                        <td>
+                            <div>@Html.DisplayFor(modelItem => item.holiday)</div>
+                        </td>
+                        <td>
+                            <div>@Html.DisplayFor(modelItem => item.description)</div>
+                        </td>
+                    </tr>
+                    count += 1;
+                }
+            }
+        </tbody>
+    </table>
+</div>

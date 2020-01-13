@@ -1,0 +1,192 @@
+﻿@using LMSystem.Resource
+@using LMSystem.Common
+@model IEnumerable<LMSystem.Models.UserLeaveQuota>
+@{
+    int recordCount = (int)ViewData["RecordCount"];
+    int pageSize = (int)ViewData["PageSize"];
+    int pageIndex = (int)ViewData["PageIndex"];
+    int pageCount = (int)Math.Ceiling((double)recordCount / pageSize);
+    int pageGroupSize = 3;
+    int pageGroupIndex = (int)Math.Ceiling((double)pageIndex / pageGroupSize);
+    int upperPageGroupIndex = (int)Math.Ceiling((double)pageCount / pageGroupSize);
+    int upperVisiblePageIndex = (pageGroupIndex * pageGroupSize < pageCount) ?
+        pageGroupIndex * pageGroupSize : pageCount;
+    int lowerVisiblePageIndex = (pageGroupIndex * pageGroupSize > 4) ?
+        (pageGroupIndex - 1) * pageGroupSize + 1 : 1;
+    var count = 1;
+}
+
+<h2>@RegionSetting.Home_UserMaint_Link3</h2>
+<div class="summary">
+    <table class="table table-condensed table-hover text-center">
+        <thead>
+            <tr class="row">
+                <th class="text-center text-break small">#</th>
+                <th class="text-center text-break small"></th>
+                <th class="text-center text-break small">@Html.LabelFor(model => model.FirstOrDefault().userID)</th>
+                <th class="text-center text-break small">@Html.LabelFor(model => model.FirstOrDefault().userName)</th>
+                <th class="text-center text-break small">@Html.LabelFor(model => model.FirstOrDefault().yearlyANNL)</th>
+                <th class="text-center text-break small">@Html.LabelFor(model => model.FirstOrDefault().yearlyBRML)</th>
+                <th class="text-center text-break small">@Html.LabelFor(model => model.FirstOrDefault().yearlyCPSL)</th>
+                <th class="text-center text-break small">@Html.LabelFor(model => model.FirstOrDefault().yearlyFMRL)</th>
+                <th class="text-center text-break small">@Html.LabelFor(model => model.FirstOrDefault().yearlySMRL)</th>
+                <th class="text-center text-break small">@Html.LabelFor(model => model.FirstOrDefault().yearlySCKL)</th>
+                <th class="text-center text-break small">@Html.LabelFor(model => model.FirstOrDefault().yearlySPCL)</th>
+                <th class="text-center text-break small">@Html.LabelFor(model => model.FirstOrDefault().yearlyUPDL)</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model)
+                {
+                        <tr class="row small">
+                            <td>
+                                <div>@((pageIndex - 1) * pageSize + count)</div>
+                            </td>
+                            <td>
+                                <div>
+                                    <a title="@RegionSetting.Details_EditLink_Caption" class="edit-link" href="#"
+                                       view-url="@Url.Action("QuotaDetail", "User", new { userid = item.userID })">
+                                        <span class="glyphicon glyphicon-wrench glyphicon-glow"></span>
+                                    </a>
+                                </div>
+                            </td>
+                            <td>
+                                <div>@Html.DisplayFor(modelItem => item.userID)</div>
+                            </td>
+                            <td>
+                                <div>@Html.DisplayFor(modelItem => item.userName)</div>
+                            </td>
+                            <td>
+                                <div>@Html.DisplayFor(modelItem => item.yearlyANNL)</div>
+                            </td>
+                            <td>
+                                <div>@Html.DisplayFor(modelItem => item.yearlyBRML)</div>
+                            </td>
+                            <td>
+                                <div>@Html.DisplayFor(modelItem => item.yearlyCPSL)</div>
+                            </td>
+                            <td>
+                                <div>@Html.DisplayFor(modelItem => item.yearlyFMRL)</div>
+                            </td>
+                            <td>
+                                <div>@Html.DisplayFor(modelItem => item.yearlySMRL)</div>
+                            </td>
+                            <td>
+                                <div>@Html.DisplayFor(modelItem => item.yearlySCKL)</div>
+                            </td>
+                            <td>
+                                <div>@Html.DisplayFor(modelItem => item.yearlySPCL)</div>
+                            </td>
+                            <td>
+                                <div>@Html.DisplayFor(modelItem => item.yearlyUPDL)</div>
+                            </td>
+
+                        </tr>
+                    count += 1;
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+<div id="pager" class="pager-bar" with-action="/User/QuotaSummary">
+    @{if (pageCount > 1)
+        {
+            <ul class="pagination">
+                <li page="1" class="@(pageIndex == 1 ? "disabled": string.Empty)">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-backward"></span>
+                    </a>
+                </li>
+
+                @{
+                    if (1 != pageIndex)
+                    {
+                        <li class="" page="@(pageIndex-1)">
+                            <a class="" href="#">
+                                <span class="glyphicon glyphicon-menu-left"></span>
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="disabled">
+                            <a class="" href="#">
+                                <span class="glyphicon glyphicon-menu-left"></span>
+                            </a>
+                        </li>
+
+                    }
+
+                    if (pageGroupIndex > 1)
+                    {
+                        <li class="disabled" page="">
+                            <a class="" href="#">
+                                ...
+                            </a>
+                        </li>
+                    }
+
+                    for (int i = lowerVisiblePageIndex; i < upperVisiblePageIndex + 1; i += 1)
+                    {
+                        if (i == pageIndex)
+                        {
+                            <li class="absolute-page active" page="@i"><a class="" href="#">@i</a></li>
+                        }
+                        else
+                        {
+
+                            <li class="absolute-page" page="@i">
+                                <a class="" href="#">
+                                    @i
+                                </a>
+                            </li>
+                        }
+                    }
+
+                    if (pageGroupIndex < upperPageGroupIndex)
+                    {
+                        <li class="disabled" page="">
+                            <a class="" href="#">
+                                ...
+                            </a>
+                        </li>
+                    }
+
+                    if (pageCount != pageIndex)
+                    {
+                        <li class="" page="@(pageIndex+1)">
+                            <a class="" href="#">
+                                <span class="glyphicon glyphicon-menu-right"></span>
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="disabled">
+                            <a class="" href="#">
+                                <span class="glyphicon glyphicon-menu-right"></span>
+                            </a>
+                        </li>
+                    }
+
+                }
+                <li page="@pageCount" class="@(pageIndex == pageCount ? "disabled": string.Empty)">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-forward"></span>
+                    </a>
+                </li>
+            </ul>
+            <div class="go-to-page">
+                @RegionSetting.GotoPage
+                <input class="direct-to-page" />
+                <button>
+                    <span class="glyphicon glyphicon-circle-arrow-right"></span>
+                </button>
+            </div>
+            <p>@ViewData["NowDisplaying"]</p>
+        }
+    }
+</div>

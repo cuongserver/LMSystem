@@ -1,0 +1,65 @@
+﻿@using LMSystem.Resource
+@using LMSystem.Common
+@using LMSystem.Models
+@using LMSystem.HTMLHelper
+@using System.Globalization
+@model LMSystem.Models.PublicHoliday
+@{
+    string currentLang = CultureInfo.CurrentCulture.ToString();
+}
+
+<h2>@RegionSetting.addPublicHoliday</h2>
+<form id="system-setting-add-holiday" class="form-horizontal" method="post" action="/SystemSetting/AddPublicHoliday">
+    <div class="form-group">
+        <div class="row-34">
+            <div class="col-20-middle">
+                <label>@RegionSetting.date</label>
+            </div>
+            <div class="col-50-middle validate-input"
+                 data-validate="@GlobalObject.GetModelErrorMessage("holiday",ViewData)">
+                <input class="form-control" autocomplete="off" type="text" name="holiday" id="date-picker" />
+            </div>
+        </div>
+        <div class="row-34">
+            <div class="col-20-middle">
+                <label>@RegionSetting.description</label>
+            </div>
+            <div class="col-50-middle validate-input"
+                 data-validate="@GlobalObject.GetModelErrorMessage("description",ViewData)">
+                <input class="form-control" autocomplete="off" type="text" name="description" />
+            </div>
+        </div>
+        <div class="row-34">
+            <div class="col-20-middle">
+            </div>
+            <div class="col-30-middle">
+                <button type="submit" class="btn-block">
+                    @RegionSetting.create
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<link rel="stylesheet" type="text/css" href="~/Content/jquery.datetimepicker.css" />
+<script src="~/Scripts/jquery.datetimepicker.full.min.js"></script>
+<script>
+    /*jslint browser:true*/
+    /*global jQuery, document*/
+    //https://xdsoft.net/jqplugins/datetimepicker/
+
+    jQuery(document).ready(function () {
+        'use strict';
+
+        jQuery('#date-picker').datetimepicker({
+            theme: 'dark',
+            timepicker: false,
+            format: 'Y/m/d',
+            mask: true,
+            todayButton: false,
+            defaultTime: "00:00"
+        });
+        $.datetimepicker.setLocale('@currentLang');
+        //jQuery('.xdsoft_today_button').remove();
+    });
+</script>

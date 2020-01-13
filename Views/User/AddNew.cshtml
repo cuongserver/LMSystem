@@ -1,0 +1,100 @@
+﻿@using LMSystem.Resource
+@using LMSystem.Common
+@using LMSystem.Models
+@using LMSystem.HTMLHelper
+@model LMSystem.Models.User
+
+
+@{
+    var DeptList = (List<Department>)ViewData["DeptList"];
+    var RankList = (List<Rank>)ViewData["RankList"];
+}
+@*<link rel="stylesheet" type="text/css" href="~/Content/ChangePassword/custom01.css?ver=@DateTime.Now" />
+    <link rel="stylesheet" type="text/css"
+          href="~/Content/Account/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />*@
+<h2>@RegionSetting.Home_UserMaint_Link1</h2>
+<form id="user-addnew" class="form-horizontal" method="post" action="/User/AddNew">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <div class="row-34">
+            <div class="col-20-middle">
+                <label>@RegionSetting.User_AddNew_fieldCaption_userID</label>
+            </div>
+            <div class="col-50-middle validate-input"
+                 data-validate="@GlobalObject.GetModelErrorMessage("userID",ViewData)">
+                <input class="form-control" autocomplete="off" type="text" name="userID" />
+            </div>
+        </div>
+        <div class="row-34">
+            <div class="col-20-middle">
+                <label>@RegionSetting.User_AddNew_fieldCaption_userName</label>
+            </div>
+            <div class="col-50-middle validate-input"
+                 data-validate="@GlobalObject.GetModelErrorMessage("userName",ViewData)">
+                <input class="form-control" autocomplete="off" type="text" name="userName" />
+            </div>
+        </div>
+        <div class="row-34">
+            <div class="col-20-middle">
+                <label>@RegionSetting.User_AddNew_fieldCaption_userPassword</label>
+            </div>
+            <div class="col-50-middle validate-input"
+                 data-validate="@GlobalObject.GetModelErrorMessage("userPassword",ViewData)">
+                <input class="form-control conceal" autocomplete="off" type="text" name="userPassword" />
+            </div>
+        </div>
+        <div class="row-34">
+            <div class="col-20-middle">
+                <label>@RegionSetting.User_AddNew_fieldCaption_deptCode</label>
+            </div>
+            <div class="col-50-middle validate-input"
+                 data-validate="@GlobalObject.GetModelErrorMessage("deptCode",ViewData)">
+                <select class="form-control" autocomplete="off" type="text" name="deptCode">
+                    @{
+                        <option style="display:none;"></option>
+                        foreach (var dept in DeptList)
+                        {
+                            <option value="@dept.deptCode">@dept.deptName</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row-34">
+            <div class="col-20-middle">
+                <label>@RegionSetting.User_AddNew_fieldCaption_rankCode</label>
+            </div>
+            <div class="col-50-middle validate-input"
+                 data-validate="@GlobalObject.GetModelErrorMessage("rankCode",ViewData)">
+                <select class="form-control" autocomplete="off" type="text" name="rankCode">
+                    @{
+                        <option style="display:none;"></option>
+                        foreach (var rank in RankList)
+                        {
+                            <option value="@rank.rankCode">@rank.rankDescription</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row-34">
+            <div class="col-20-middle">
+                <label>@RegionSetting.User_AddNew_fieldCaption_userEmail</label>
+            </div>
+            <div class="col-50-middle validate-input"
+                 data-validate="@GlobalObject.GetModelErrorMessage("userEmail",ViewData)">
+                <input class="form-control" autocomplete="off" type="text" name="userEmail" />
+            </div>
+        </div>
+        <div class="row-34">
+            <div class="col-20-middle">
+            </div>
+            <div class="col-30-middle">
+                <button type="submit" class="btn-block">
+                    @RegionSetting.User_AddNew_buttonCaption_create
+                </button>
+            </div>
+        </div>
+    </div>
+
+</form>

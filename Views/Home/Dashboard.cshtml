@@ -1,0 +1,277 @@
+﻿@using LMSystem.Resource
+@using System.Web.Security
+@using System.Security.Principal
+@using System.Globalization
+
+@{
+    Layout = null;
+    HttpCookie authCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
+    string userName = string.Empty;
+    string userRole = string.Empty;
+    if (authCookie != null)
+    {
+        FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+        string[] userData = authTicket.UserData.Split(new Char[] { '|' });
+        userName = userData[1];
+        userRole = userData[0];
+    }
+
+
+    Random random = new Random();
+
+    string currentLang = CultureInfo.CurrentCulture.ToString();
+    var controllerName = ViewContext.RouteData.Values["controller"];
+    string logoutAction = "/" + currentLang + "/" + controllerName + "/Logout";
+
+}
+
+<!DOCTYPE html>
+<!-- Template by Quackit.com -->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>@RegionSetting.Account_AppName</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Content/Home/css/bootstrap.min.css?ver=@random.Next(1, 1000000)" rel="stylesheet">
+
+    <!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->
+    <link href="~/Content/Extra.css?ver=@random.Next(1, 1000000)" rel="stylesheet">
+    <!-- mask text input -->
+    <link href="~/fonts/text-security/text-security.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- disable back button-->
+    <link rel="stylesheet" type="text/css"
+          href="~/Content/Account/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <link href="~/Content/loadingMask.css?ver=@random.Next(1, 1000000)" rel="stylesheet">
+</head>
+
+<body>
+    <div class="outer-container">
+        <!-- Navigation -->
+        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+            <div class="container">
+                <!-- Logo and responsive toggle -->
+                <!-- Navbar links -->
+                <div class="dis-flex" id="navbar">
+                    <div class="flex-start">
+                        <span class="color-springgreen">@RegionSetting.Home_Welcome_Label, @userName</span>
+                        <button class="home-logout-button" view-url="@logoutAction">
+                            @RegionSetting.Home_Logout_Button_Caption
+                        </button>
+                    </div>
+
+                    <div class="flex-end">
+                        <span class="color-springgreen">@RegionSetting.Home_Language_Label</span>
+                        <span>&nbsp;&nbsp;&nbsp;</span>
+                        <div class="dropdown">
+                            <button class="dropbtn2 color-springgreen">
+                                @RegionSetting.Home_Language_Current <span class="caret"></span>
+                            </button>
+                            <div class="dropdown-content2">
+                                <a href="/vi/Home/Dashboard/">Tiếng Việt</a>
+                                <a href="/en/Home/Dashboard/">English</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Search -->
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container -->
+        </div>
+
+        <div class="container-fluid">
+
+            <!-- Left Column -->
+            <div class="col-sm-3 padding-top-5">
+
+                <!-- List-Group Panel -->
+                <div div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">
+                                <span class="glyphicon glyphicon-random"></span>
+                                <a class="accordion-toggle" href="#account-maintenance" data-toggle="collapse" data-parent="#accordion">
+                                    @RegionSetting.Home_AccMaint
+                                </a>
+                            </h1>
+                        </div>
+                        <div class="list-group collapse in" id="account-maintenance">
+                            <a href="#" view-url="/Account/ChangePassword" class="list-group-item">
+                                @RegionSetting.Home_AccMaint_Link1
+                            </a>
+                        </div>
+                        @{if (userRole == "Admin")
+                            {
+                                <div class="panel-heading">
+                                    <h1 class="panel-title">
+                                        <span class="glyphicon glyphicon-random"></span>
+                                        <a class="accordion-toggle" href="#user-maintenance" data-toggle="collapse" data-parent="#accordion">
+                                            @RegionSetting.Home_UserMaint
+                                        </a>
+                                    </h1>
+                                </div>
+                                <div class="list-group collapse" id="user-maintenance">
+                                    <a href="#" view-url="/User/Overview?pageIndex=1" class="list-group-item">
+                                        @RegionSetting.Home_UserMaint_Link2
+                                    </a>
+                                    <a href="#" view-url="/User/AddNew" class="list-group-item">
+                                        @RegionSetting.Home_UserMaint_Link1
+                                    </a>
+                                    <a href="#" view-url="/User/QuotaSummary" class="list-group-item">
+                                        @RegionSetting.Home_UserMaint_Link3
+                                    </a>
+                                </div>
+
+                            }
+                        }
+                        <div class="panel-heading">
+                            <h1 class="panel-title">
+                                <span class="glyphicon glyphicon-random"></span>
+                                <a class="accordion-toggle" href="#leave-management" data-toggle="collapse" data-parent="#accordion">
+                                    @RegionSetting.Home_LeaveManageLink_Group_Caption
+                                </a>
+                            </h1>
+                        </div>
+                        <div class="list-group collapse" id="leave-management">
+                            @{
+                                if (userRole == "User" || userRole == "Manager")
+                                {
+                                    <a id="see-balance" href="#" view-url="/LeaveApplication/SeeBalance?reportYear=@(DateTime.Now.Year.ToString())" class="list-group-item">
+                                        @RegionSetting.Home_LeaveManageLink_SeeBalance
+                                    </a>
+
+                                    <a href="#" view-url="/LeaveApplication/New" class="list-group-item">
+                                        @RegionSetting.Home_LeaveManageLink_Apply
+                                    </a>
+
+
+                                    <a href="#" view-url="/LeaveApplication/ShowMine" class="list-group-item">
+                                        @RegionSetting.showMyApp
+                                    </a>
+                                }
+                            }
+                            @{
+                                if (userRole == "Admin" || userRole == "Manager" || userRole == "Director")
+                                {
+                                    <a href="#" view-url="/LeaveApplication/PendingAppList" class="list-group-item">
+                                        @RegionSetting.Home_LeaveManageLink_Approve
+                                    </a>
+                                }
+                            }
+
+                            @{
+                                if (userRole == "Admin")
+                                {
+                                    <a href="#" view-url="/LeaveApplication/ShowAllApp" class="list-group-item">
+                                        @RegionSetting.Home_LeaveManageLink_ShowAll
+                                    </a>
+                                    <a href="#" view-url="/LeaveApplication/AppByAdmin" class="list-group-item">
+                                        @RegionSetting.appByAdmin
+                                    </a>
+                                }
+                            }
+
+                        </div>
+                        @{if (userRole == "Admin")
+                            {
+                                <div class="panel-heading">
+                                    <h1 class="panel-title">
+                                        <span class="glyphicon glyphicon-random"></span>
+                                        <a class="accordion-toggle" href="#system-setting" data-toggle="collapse" data-parent="#accordion">
+                                            @RegionSetting.systemSetting
+                                        </a>
+                                    </h1>
+                                </div>
+                                <div class="list-group collapse" id="system-setting">
+                                    <a href="#" view-url="/SystemSetting/ShowPublicHoliday" class="list-group-item">
+                                        @RegionSetting.listPublicHoliday
+                                    </a>
+                                    <a href="#" view-url="/SystemSetting/NewPublicHoliday" class="list-group-item">
+                                        @RegionSetting.addPublicHoliday
+                                    </a>
+                                </div>
+
+                            }
+                        }
+                    </div>
+                </div>
+            </div><!--/Left Column-->
+            <!-- Center Column -->
+            <div class="col-sm-9 padding-top-5" id="mainContent">
+
+            </div><!--/Center Column-->
+
+        </div><!--/container-fluid-->
+
+        <div class="footer-bottom-black">
+            <div class="inner-container">
+                <p>Copyright &copy; @RegionSetting.Account_AppName - @DateTime.Now.Year </p>
+            </div>
+        </div>
+
+        <div class="mask-active mask-inactive">
+            <div class="alert-panel">
+                <p></p>
+                <button class="alert-ok">
+                    OK
+                </button>
+            </div>
+        </div>
+
+        <div id="change-password-successful-message">
+
+        </div>
+
+        <div id="general-message">
+
+        </div>
+
+        <div id="general-detail">
+
+        </div>
+
+        <div id="unauthorized-alert" message="@RegionSetting.Unauthorized_Alert">
+
+        </div>
+        <div id="loading-mask" class="loading-mask">
+            <div class="loader">
+                <div>
+                    <p class="loading-message">@RegionSetting.Loading_Mask_Content</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- jQuery -->
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="~/Scripts/bootstrap.min.js?ver=@random.Next(1, 1000000)"></script>
+
+        <!-- IE10 viewport bug workaround -->
+        <script src="~/Content/Home/js/ie10-viewport-bug-workaround.js"></script>
+
+        <!-- Placeholder Images -->
+        <script src="~/Content/Home/js/holder.min.js"></script>
+
+
+    </div> @*/outer container*@
+
+
+    <script type="text/javascript" src="~/Scripts/Dashboard.js?ver=@random.Next(1, 1000000)"></script>
+    <script src="~/Scripts/loadingMask.js?ver=@random.Next(1, 1000000)"></script>
+    <script src="~/Scripts/dateTimeCalc.js?ver=@random.Next(1, 1000000)"></script>
+</body>
+
+
+</html>

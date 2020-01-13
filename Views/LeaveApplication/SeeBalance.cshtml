@@ -1,0 +1,67 @@
+﻿@using LMSystem.Resource
+@using LMSystem.Common
+@using LMSystem.Models
+@model IEnumerable<leaveAvailable>
+<h4>@RegionSetting.Home_LeaveManageLink_SeeBalance</h4>
+
+@{ 
+    var reportYear = Convert.ToInt32(ViewData["ReportYear"].ToString());
+    int x;
+    var thisYear = DateTime.Now.Year;
+}
+
+<div class="d-flex my-3px" id="filter-by-year">
+    <div class="text-black mx-3px">@RegionSetting.selectYear</div>
+    <select class="text-black mx-3px" value="@reportYear">
+        @{ 
+            for (x = 0; x < 5; x += 1)
+            {
+                <option value="@(thisYear-x)" @(reportYear == thisYear - x ? "selected": "")>
+                    @(thisYear-x)
+                </option>
+            }
+        }
+    </select>
+    <button class="navbar-toggler mx-3px" view-url="/LeaveApplication/SeeBalance">
+        <span class="glyphicon glyphicon-refresh"></span>
+    </button>
+</div>
+<div class="summary">
+    <hr />
+    <table class="table table-condensed table-hover text-center small table-layout-auto table-bordered">
+        <thead>
+            <tr class="row">
+                <th class="text-center">@RegionSetting.reasonDetail</th>
+                <th class="text-center">@RegionSetting.leaveQuota</th>
+                <th class="text-center">@RegionSetting.leaveUsed</th>
+                <th class="text-center">@RegionSetting.leavePending</th>
+                <th class="text-center">@RegionSetting.leaveBalance</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model)
+                {
+                    <tr class="row">
+                        <td>
+                            <div>@item.reasonDetail</div>
+                        </td>
+                        <td>
+                            <div>@(item.leaveQuota == "Unlimited" ? RegionSetting.unlimited : item.leaveQuota) </div>
+                        </td>
+                        <td>
+                            <div>@item.leaveUsed</div>
+                        </td>
+                        <td>
+                            <div>@item.leavePending</div>
+                        </td>
+                        <td>
+                            <div>@(item.leaveBalance == "Unlimited" ? RegionSetting.unlimited : item.leaveBalance)</div>
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+</div>

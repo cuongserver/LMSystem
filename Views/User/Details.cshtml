@@ -1,0 +1,137 @@
+﻿@using LMSystem.Resource
+@using LMSystem.Common
+@using LMSystem.Models
+@model LMSystem.Models.User
+
+@{
+    var DeptList = (List<Department>)ViewData["DeptList"];
+    var RankList = (List<Rank>)ViewData["RankList"];
+    string notFound = (string)ViewData["NotFound"];
+}
+@*<link rel="stylesheet" type="text/css" href="~/Content/ChangePassword/custom01.css?ver=@DateTime.Now" />
+    <link rel="stylesheet" type="text/css"
+          href="~/Content/Account/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />*@
+<div class="alert-panel edit-panel">
+    <div class="title-bar">
+        <span class="close">&times;</span>
+    </div>
+    @if (notFound != null)
+    {
+        @notFound
+    }
+    else
+    {
+        <form id="user-edit" class="form-horizontal" method="post" action="/User/Details">
+            @Html.AntiForgeryToken()
+            <div class="container-2column small">
+                <div class="content-column">
+                    <div class="column-40 column-left">
+                        <label>@Html.LabelFor(model => model.userID)</label>
+                    </div>
+                    <div class="column-60 column-right validate-input"
+                         data-validate="@GlobalObject.GetModelErrorMessage("userID", ViewData)">
+                        @Html.DisplayFor(model => model.userID)
+                        @Html.HiddenFor(model => model.userID)
+                    </div>
+                </div>
+
+                <div class="content-column">
+                    <div class="column-40 column-left">
+                        <label>@Html.LabelFor(model => model.userName)</label>
+                    </div>
+                    <div class="column-60 column-right validate-input"
+                         data-validate="@GlobalObject.GetModelErrorMessage("userName", ViewData)">
+                        <input class="form-input" autocomplete="off" type="text" name="userName" value="@Model.userName" />
+                    </div>
+                </div>
+
+                <div class="content-column">
+                    <div class="column-40 column-left">
+                        <label>@Html.LabelFor(model => model.deptCode)</label>
+                    </div>
+                    <div class="column-60 column-right validate-input"
+                         data-validate="@GlobalObject.GetModelErrorMessage("deptCode", ViewData)">
+                        <select class="form-input" autocomplete="off" type="text" name="deptCode">
+                            @{
+                                foreach (var dept in DeptList)
+                                {
+                                    <option value="@dept.deptCode" @(Model.deptCode == dept.deptCode ? "selected" : "")>@dept.deptName</option>
+
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="content-column">
+                    <div class="column-40 column-left">
+                        <label>@Html.LabelFor(model => model.rankCode)</label>
+                    </div>
+                    <div class="column-60 column-right validate-input"
+                         data-validate="@GlobalObject.GetModelErrorMessage("rankCode", ViewData)">
+                        <select class="form-input" autocomplete="off" type="text" name="rankCode">
+                            @{
+                                foreach (var rank in RankList)
+                                {
+                                    <option value="@rank.rankCode" @(Model.rankCode == rank.rankCode ? "selected" : "")>@rank.rankDescription</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="content-column">
+                    <div class="column-40 column-left">
+                        <label>@Html.LabelFor(model => model.userEmail)</label>
+                    </div>
+                    <div class="column-60 column-right validate-input"
+                         data-validate="@GlobalObject.GetModelErrorMessage("userEmail", ViewData)">
+                        <input class="form-input" autocomplete="off" type="text" name="userEmail" value="@Model.userEmail" />
+                    </div>
+                </div>
+
+                <div class="content-column">
+                    <div class="column-40 column-left">
+                        <label>@Html.LabelFor(model => model.userIsActive)</label>
+                    </div>
+                    <div class="column-60 column-right validate-input"
+                         data-validate="">
+                        <div class="radio-button-row">
+                            <input class="" autocomplete="off" type="radio" name="userIsActive" value="true"
+                                   @(Model.userIsActive.ToString() == "True" ? "checked" : "") />
+                            <label>  @RegionSetting.User_ActiveStatus_Active  </label>
+                            <input class="" autocomplete="off" type="radio" name="userIsActive" value="false"
+                                   @(Model.userIsActive.ToString() == "False" ? "checked" : "") />
+                            <label>  @RegionSetting.User_ActiveStatus_Inactive  </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-column">
+                    <div class="column-40 column-left">
+                        <label>@Html.LabelFor(model => model.userFailedLoginAttempt)</label>
+                    </div>
+                    <div class="column-60 column-right validate-input"
+                         data-validate="@GlobalObject.GetModelErrorMessage("userFailedLoginAttempt", ViewData)">
+                        <input class="form-input" autocomplete="off" type="text" name="userFailedLoginAttempt" value="@Model.userFailedLoginAttempt" />
+                    </div>
+                </div>
+                <div class="content-column">
+
+                </div>
+                <div class="content-column">
+                    <div class="column-40 column-left">
+
+                    </div>
+                    <div class="column-60 column-right">
+                        <button type="submit" class="btn-block">
+                            @RegionSetting.Edit_SaveChange_Caption
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    }
+
+</div>
+

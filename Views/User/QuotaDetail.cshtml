@@ -1,0 +1,149 @@
+﻿@using LMSystem.Resource
+@using LMSystem.Common
+@using LMSystem.Models
+@model LMSystem.Models.UserLeaveQuota
+
+@{
+    string notFound = (string)ViewData["NotFound"];
+}
+@*<link rel="stylesheet" type="text/css" href="~/Content/ChangePassword/custom01.css?ver=@DateTime.Now" />
+    <link rel="stylesheet" type="text/css"
+          href="~/Content/Account/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />*@
+<div class="alert-panel edit-panel">
+    <div class="title-bar">
+        <span class="close">&times;</span>
+    </div>
+    @if (notFound != null)
+    {
+        @notFound
+    }
+    else
+    {
+        <form id="quota-edit" class="form-horizontal modal-form" method="post" action="/User/QuotaDetail">
+            @Html.AntiForgeryToken()
+            <div class="container-2column small">
+                <div class="content-column">
+                    <div class="column-40 column-left">
+                        <label>@Html.LabelFor(model => model.userID)</label>
+                    </div>
+                    <div class="column-60 column-right validate-input"
+                         data-validate="@GlobalObject.GetModelErrorMessage("userID", ViewData)">
+                        @Html.DisplayFor(model => model.userID)
+                        @Html.HiddenFor(model => model.userID)
+                    </div>
+                </div>
+
+                <div class="content-column">
+                    <div class="column-40 column-left">
+                        <label>@Html.LabelFor(model => model.userName)</label>
+                    </div>
+                    <div class="column-60 column-right validate-input"
+                         data-validate="@GlobalObject.GetModelErrorMessage("userID", ViewData)">
+                        @Html.DisplayFor(model => model.userName)
+                        @Html.HiddenFor(model => model.userName)
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <div class="content-column col-xs-6 pl-1 pr-1">
+                        <div class="column-50 column-left">
+                            <label>@Html.LabelFor(model => model.yearlyANNL)</label>
+                        </div>
+                        <div class="column-50 column-right validate-input"
+                             data-validate="@GlobalObject.GetModelErrorMessage("yearlyANNL", ViewData)">
+                            <input class="form-input" autocomplete="off" type="text" name="yearlyANNL" value="@Model.yearlyANNL" />
+                        </div>
+                    </div>
+                    <div class="content-column col-xs-6 pl-1 pr-1">
+                        <div class="column-50 column-left">
+                            <label>@Html.LabelFor(model => model.yearlyBRML)</label>
+                        </div>
+                        <div class="column-50 column-right validate-input"
+                             data-validate="@GlobalObject.GetModelErrorMessage("yearlyBRML", ViewData)">
+                            <input class="form-input" autocomplete="off" type="text" name="yearlyBRML" value="@Model.yearlyBRML" />
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="content-column col-xs-6 pl-1 pr-1">
+                        <div class="column-50 column-left">
+                            <label>@Html.LabelFor(model => model.yearlyCPSL)</label>
+                        </div>
+                        <div class="column-50 column-right validate-input"
+                             data-validate="@GlobalObject.GetModelErrorMessage("yearlyCPSL", ViewData)">
+                            <input class="form-input" autocomplete="off" type="text" name="yearlyCPSL" value="@Model.yearlyCPSL" />
+                        </div>
+                    </div>
+                    <div class="content-column col-xs-6 pl-1 pr-1">
+                        <div class="column-50 column-left">
+                            <label>@Html.LabelFor(model => model.yearlyFMRL)</label>
+                        </div>
+                        <div class="column-50 column-right validate-input"
+                             data-validate="@GlobalObject.GetModelErrorMessage("yearlyFMRL", ViewData)">
+                            <input class="form-input" autocomplete="off" type="text" name="yearlyFMRL" value="@Model.yearlyFMRL" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <div class="content-column col-xs-6 pl-1 pr-1">
+                        <div class="column-50 column-left">
+                            <label>@Html.LabelFor(model => model.yearlySCKL)</label>
+                        </div>
+                        <div class="column-50 column-right validate-input"
+                             data-validate="@GlobalObject.GetModelErrorMessage("yearlySCKL", ViewData)">
+                            <input class="form-input" autocomplete="off" type="text" name="yearlySCKL" value="@Model.yearlySCKL" />
+                        </div>
+                    </div>
+                    <div class="content-column col-xs-6 pl-1 pr-1">
+                        <div class="column-50 column-left">
+                            <label>@Html.LabelFor(model => model.yearlySMRL)</label>
+                        </div>
+                        <div class="column-50 column-right validate-input"
+                             data-validate="@GlobalObject.GetModelErrorMessage("yearlySMRL", ViewData)">
+                            <input class="form-input" autocomplete="off" type="text" name="yearlySMRL" value="@Model.yearlySMRL" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <div class="content-column col-xs-6 pl-1 pr-1">
+                        <div class="column-50 column-left">
+                            <label>@Html.LabelFor(model => model.yearlySPCL)</label>
+                        </div>
+                        <div class="column-50 column-right validate-input"
+                             data-validate="@GlobalObject.GetModelErrorMessage("yearlySPCL", ViewData)">
+                            <input class="form-input" autocomplete="off" type="text" name="yearlySPCL" value="@Model.yearlySPCL" />
+                        </div>
+                    </div>
+                    <div class="content-column col-xs-6 pl-1 pr-1">
+                        <div class="column-50 column-left">
+                            <label>@Html.LabelFor(model => model.yearlyUPDL)</label>
+                        </div>
+                        <div class="column-50 column-right validate-input"
+                             data-validate="@GlobalObject.GetModelErrorMessage("yearlyUPDL", ViewData)">
+                            <input class="form-input" autocomplete="off" type="text" name="yearlyUPDL" value="@Model.yearlyUPDL" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-column">
+
+                </div>
+                <div class="content-column">
+                    <div class="column-40 column-left">
+
+                    </div>
+                    <div class="column-60 column-right">
+                        <button type="submit" class="btn-block">
+                            @RegionSetting.Edit_SaveChange_Caption
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    }
+
+</div>
+
+

@@ -1,0 +1,81 @@
+﻿@using LMSystem.Resource
+@using LMSystem.Common
+@using LMSystem.Models
+@model IEnumerable<LMSystem.Models.LeaveApplication>
+@{
+    var count = 1;
+}
+<h4>@RegionSetting.Home_LeaveManageLink_Approve</h4>
+<div id="pendingApp" class="summary">
+    <table class="table table-condensed table-hover text-center small">
+        <thead>
+            <tr class="row">
+                <th class="text-center">#</th>
+                <th class="text-center"></th>
+                <th class="text-center">@RegionSetting.appID</th>
+                <th class="text-center">@RegionSetting.User_AddNew_fieldCaption_userName</th>
+                <th class="text-center">@RegionSetting.deptName</th>
+                <th class="text-center">@RegionSetting.rankDescription</th>
+                <th class="text-center">@RegionSetting.reasonDetail</th>
+                <th class="text-center">@RegionSetting.applicantDesc</th>
+                <th class="text-center">@RegionSetting.timeStart</th>
+                <th class="text-center">@RegionSetting.timeEnd</th>
+                <th class="text-center">@RegionSetting.hourRequired</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model)
+                {
+
+                    <tr class="row">
+                        <td>
+                            <div>@(count)</div>
+                        </td>
+                        <td>
+                            <div id="@item.appID" result-approve="@RegionSetting.approve" result-reject="@RegionSetting.reject">
+                                <a class="edit-link" title="@RegionSetting.approve" href="#" view-url="@Url.Action("SelectAuthorizeCommand", "LeaveApplication", new { appID = item.appID, instruction = 1 })">
+                                    <span class="glyphicon glyphicon-ok-sign glyphicon-glow large-size-icon"></span>
+                                </a>
+                                <a class="udpw-link" title="@RegionSetting.reject" href="#" view-url="@Url.Action("SelectAuthorizeCommand", "LeaveApplication", new { appID = item.appID, instruction = 0 })">
+                                    <span class="glyphicon glyphicon-ban-circle glyphicon-glow large-size-icon"></span>
+                                </a>
+
+                            </div>
+                        </td>
+                        <td>
+                            <div>@(item.appID)</div>
+                        </td>
+                        <td>
+                            <div>@(item.userName)</div>
+                        </td>
+                        <td>
+                            <div>@(item.deptName)</div>
+                        </td>
+                        <td>
+                            <div>@(item.rankDescription)</div>
+                        </td>
+                        <td>
+                            <div>@(item.reasonDetail)</div>
+                        </td>
+                        <td>
+                            <div>@(item.applicantDesc)</div>
+                        </td>
+                        <td>
+                            <div>@(item.timeStart)</div>
+                        </td>
+                        <td>
+                            <div>@(item.timeEnd)</div>
+                        </td>
+                        <td>
+                            <div>@(item.hourRequired)</div>
+                        </td>
+                    </tr>
+
+                    count += 1;
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

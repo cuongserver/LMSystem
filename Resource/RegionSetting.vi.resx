@@ -1,0 +1,505 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Account_AppName" xml:space="preserve">
+    <value>Quản lý nghỉ phép v1.0</value>
+  </data>
+  <data name="Account_DisplayIn" xml:space="preserve">
+    <value>Hiển thị trang với:</value>
+  </data>
+  <data name="Account_Forgot" xml:space="preserve">
+    <value>Quên Tài khoản / Mật khẩu?</value>
+  </data>
+  <data name="Account_LoginButtonCaption" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="Account_PasswordErr" xml:space="preserve">
+    <value>Mật khẩu không được trống</value>
+  </data>
+  <data name="Account_PasswordPlaceholder" xml:space="preserve">
+    <value>Mật khẩu</value>
+  </data>
+  <data name="Account_UsernameErr" xml:space="preserve">
+    <value>Tên truy cập không hợp lệ</value>
+  </data>
+  <data name="Account_UsernamePlaceholder" xml:space="preserve">
+    <value>Tài khoản</value>
+  </data>
+  <data name="addPublicHoliday" xml:space="preserve">
+    <value>Thêm ngày nghỉ lễ</value>
+  </data>
+  <data name="Admin_Password" xml:space="preserve">
+    <value>Mật khẩu quản trị</value>
+  </data>
+  <data name="appByAdmin" xml:space="preserve">
+    <value>Đơn nghỉ phép lập bởi Admin</value>
+  </data>
+  <data name="appCreated" xml:space="preserve">
+    <value>Khởi tạo đơn nghỉ phép thành công</value>
+  </data>
+  <data name="appFailed" xml:space="preserve">
+    <value>Đơn nghỉ phép không hợp lệ</value>
+  </data>
+  <data name="appID" xml:space="preserve">
+    <value>Số hiệu theo dõi</value>
+  </data>
+  <data name="applicantDesc" xml:space="preserve">
+    <value>Diễn giải</value>
+  </data>
+  <data name="applicationProgress" xml:space="preserve">
+    <value>Tiến độ</value>
+  </data>
+  <data name="approve" xml:space="preserve">
+    <value>Phê duyệt</value>
+  </data>
+  <data name="approverAction" xml:space="preserve">
+    <value>Kết quả phê duyệt</value>
+  </data>
+  <data name="approverDesc" xml:space="preserve">
+    <value>Lời nhắn của người duyệt</value>
+  </data>
+  <data name="approverUserID" xml:space="preserve">
+    <value>Tên đăng nhập người duyệt</value>
+  </data>
+  <data name="booleanNo0" xml:space="preserve">
+    <value>Không</value>
+  </data>
+  <data name="booleanYes0" xml:space="preserve">
+    <value>Có</value>
+  </data>
+  <data name="Caption_yearlyANNL" xml:space="preserve">
+    <value>Phép</value>
+  </data>
+  <data name="Caption_yearlyBRML" xml:space="preserve">
+    <value>Tang chế</value>
+  </data>
+  <data name="Caption_yearlyCPSL" xml:space="preserve">
+    <value>Bù</value>
+  </data>
+  <data name="Caption_yearlyFMRL" xml:space="preserve">
+    <value>Cưới (gia đình)</value>
+  </data>
+  <data name="Caption_yearlySCKL" xml:space="preserve">
+    <value>Ốm đau</value>
+  </data>
+  <data name="Caption_yearlySMRL" xml:space="preserve">
+    <value>Cưới (bản thân)</value>
+  </data>
+  <data name="Caption_yearlySPKL" xml:space="preserve">
+    <value>Đặc biệt</value>
+  </data>
+  <data name="Caption_yearlyUPDL" xml:space="preserve">
+    <value>Không lương</value>
+  </data>
+  <data name="ChangePassword_NewPWNotMatched" xml:space="preserve">
+    <value>Vui lòng xác nhận lại mật khẩu mới</value>
+  </data>
+  <data name="ChangePassword_Nonblank" xml:space="preserve">
+    <value>Không được để trống</value>
+  </data>
+  <data name="ChangePassword_OKbutton" xml:space="preserve">
+    <value>Xác nhận đổi mật khẩu</value>
+  </data>
+  <data name="ChangePassword_Success" xml:space="preserve">
+    <value>Mật khẩu đã được thay đổi. Quý khách cần đăng nhập lại.</value>
+  </data>
+  <data name="contain" xml:space="preserve">
+    <value>Chứa</value>
+  </data>
+  <data name="create" xml:space="preserve">
+    <value>Khởi tạo</value>
+  </data>
+  <data name="date" xml:space="preserve">
+    <value>Ngày</value>
+  </data>
+  <data name="dateInvalid" xml:space="preserve">
+    <value>Ngày được chọn đã có đơn nghỉ phép sử dụng, vui lòng vô hiệu đơn nghỉ phép có liên quan</value>
+  </data>
+  <data name="deptName" xml:space="preserve">
+    <value>Phòng ban</value>
+  </data>
+  <data name="description" xml:space="preserve">
+    <value>Diễn giải</value>
+  </data>
+  <data name="Details_EditLink_Caption" xml:space="preserve">
+    <value>Sửa</value>
+  </data>
+  <data name="Details_UpdatePasswordLink_Caption" xml:space="preserve">
+    <value>Đổi mật khẩu</value>
+  </data>
+  <data name="Edit_SaveChange_Caption" xml:space="preserve">
+    <value>Lưu chỉnh sửa</value>
+  </data>
+  <data name="equal" xml:space="preserve">
+    <value>Bằng</value>
+  </data>
+  <data name="filter" xml:space="preserve">
+    <value>Bộ lọc</value>
+  </data>
+  <data name="GotoPage" xml:space="preserve">
+    <value>Đi đến trang: </value>
+  </data>
+  <data name="Home_AccMaint" xml:space="preserve">
+    <value>Quản lý tài khoản</value>
+  </data>
+  <data name="Home_AccMaint_Link1" xml:space="preserve">
+    <value>Đổi mật khẩu</value>
+  </data>
+  <data name="Home_Language_Current" xml:space="preserve">
+    <value>Tiếng Việt</value>
+  </data>
+  <data name="Home_Language_Label" xml:space="preserve">
+    <value>Ngôn ngữ:</value>
+  </data>
+  <data name="Home_LeaveManageLink_Apply" xml:space="preserve">
+    <value>Nộp yêu cầu nghỉ</value>
+  </data>
+  <data name="Home_LeaveManageLink_Approve" xml:space="preserve">
+    <value>Duyệt đơn</value>
+  </data>
+  <data name="Home_LeaveManageLink_Group_Caption" xml:space="preserve">
+    <value>Quản lý nghỉ phép</value>
+  </data>
+  <data name="Home_LeaveManageLink_SeeBalance" xml:space="preserve">
+    <value>Xem phép tồn</value>
+  </data>
+  <data name="Home_LeaveManageLink_ShowAll" xml:space="preserve">
+    <value>Xem toàn bộ đơn nghỉ phép</value>
+  </data>
+  <data name="Home_Logout_Button_Caption" xml:space="preserve">
+    <value>Đăng xuất</value>
+  </data>
+  <data name="Home_UserMaint" xml:space="preserve">
+    <value>Quản lý người dùng</value>
+  </data>
+  <data name="Home_UserMaint_Link1" xml:space="preserve">
+    <value>Thêm mới người dùng</value>
+  </data>
+  <data name="Home_UserMaint_Link2" xml:space="preserve">
+    <value>Tổng quan người dùng</value>
+  </data>
+  <data name="Home_UserMaint_Link3" xml:space="preserve">
+    <value>Hạn mức ngày nghỉ</value>
+  </data>
+  <data name="Home_Welcome_Label" xml:space="preserve">
+    <value>Xin chào</value>
+  </data>
+  <data name="hourRequired" xml:space="preserve">
+    <value>T/g nghỉ tính theo giờ</value>
+  </data>
+  <data name="initDate" xml:space="preserve">
+    <value>Ngày tạo</value>
+  </data>
+  <data name="invalidInput" xml:space="preserve">
+    <value>Nhập liệu sai</value>
+  </data>
+  <data name="leaveBalance" xml:space="preserve">
+    <value>Còn tồn</value>
+  </data>
+  <data name="leavePending" xml:space="preserve">
+    <value>Đang chờ duyệt</value>
+  </data>
+  <data name="leaveQuota" xml:space="preserve">
+    <value>Hạn mức</value>
+  </data>
+  <data name="leaveUsed" xml:space="preserve">
+    <value>Đã sử dụng</value>
+  </data>
+  <data name="listPublicHoliday" xml:space="preserve">
+    <value>Danh sách ngày nghỉ lễ</value>
+  </data>
+  <data name="Loading_Mask_Content" xml:space="preserve">
+    <value>Đang tải</value>
+  </data>
+  <data name="masterDataNotFound" xml:space="preserve">
+    <value>Không tìm thấy dữ liệu</value>
+  </data>
+  <data name="NewPasswordConfirm_Label" xml:space="preserve">
+    <value>Xác nhận mật khẩu mới</value>
+    <comment>PasswordChange</comment>
+  </data>
+  <data name="NewPassword_Label" xml:space="preserve">
+    <value>Mật khẩu mới</value>
+    <comment>PasswordChange</comment>
+  </data>
+  <data name="NoResult" xml:space="preserve">
+    <value>Nội dung được yêu cầu không hợp lệ</value>
+  </data>
+  <data name="notContain" xml:space="preserve">
+    <value>Không chứa</value>
+  </data>
+  <data name="notEqual" xml:space="preserve">
+    <value>Khác</value>
+  </data>
+  <data name="nothingFound" xml:space="preserve">
+    <value>Không có kết quả</value>
+  </data>
+  <data name="NowDisplaying" xml:space="preserve">
+    <value>Hiển thị kết quả: </value>
+  </data>
+  <data name="OldPassword_Label" xml:space="preserve">
+    <value>Mật khẩu cũ</value>
+    <comment>PasswordChange</comment>
+  </data>
+  <data name="Quota_Regex" xml:space="preserve">
+    <value>Chỉ số nguyên hay &lt;Unlimited&gt;</value>
+  </data>
+  <data name="rankDescription" xml:space="preserve">
+    <value>Chức vụ</value>
+  </data>
+  <data name="reasonDetail" xml:space="preserve">
+    <value>Lý do nghỉ</value>
+  </data>
+  <data name="reasonDetail_None" xml:space="preserve">
+    <value>-- Chọn lý do nghỉ --</value>
+  </data>
+  <data name="recordDisabled" xml:space="preserve">
+    <value>Bản ghi đã được vô hiệu</value>
+  </data>
+  <data name="recordExists" xml:space="preserve">
+    <value>Bản ghi đã tồn tại</value>
+  </data>
+  <data name="recordInserted" xml:space="preserve">
+    <value>Bản ghi đã được tạo</value>
+  </data>
+  <data name="reject" xml:space="preserve">
+    <value>Từ chối</value>
+  </data>
+  <data name="selectYear" xml:space="preserve">
+    <value>Chọn một năm</value>
+  </data>
+  <data name="sendRequest" xml:space="preserve">
+    <value>Gửi yêu cầu</value>
+  </data>
+  <data name="showMyApp" xml:space="preserve">
+    <value>Xem đơn nghỉ phép của tôi</value>
+  </data>
+  <data name="systemSetting" xml:space="preserve">
+    <value>Thiết lập hệ thống</value>
+  </data>
+  <data name="systemStatus" xml:space="preserve">
+    <value>Tình trạng</value>
+  </data>
+  <data name="terminate" xml:space="preserve">
+    <value>Hủy đơn nghỉ phép</value>
+  </data>
+  <data name="terminated" xml:space="preserve">
+    <value>Vô hiệu</value>
+  </data>
+  <data name="timeEnd" xml:space="preserve">
+    <value>Đến</value>
+  </data>
+  <data name="timeStart" xml:space="preserve">
+    <value>Từ</value>
+  </data>
+  <data name="Unauthorized_Alert" xml:space="preserve">
+    <value>Quý khách không có quyền truy cập ở đây. Xin liên hệ admin để có thêm chi tiết.</value>
+    <comment>Qu\xFD kh\xE1ch kh\xF4ng c\xF3 quyền truy cập ở đ\xE2y. Xin li\xEAn hệ admin để c\xF3 th\xEAm chi tiết.</comment>
+  </data>
+  <data name="unlimited" xml:space="preserve">
+    <value>Không giới hạn</value>
+  </data>
+  <data name="User_ActiveStatus_Active" xml:space="preserve">
+    <value>Hoạt động</value>
+  </data>
+  <data name="User_ActiveStatus_Inactive" xml:space="preserve">
+    <value>Bị vô hiệu hóa</value>
+  </data>
+  <data name="User_AddNew_buttonCaption_create" xml:space="preserve">
+    <value>Khởi tạo tài khoản</value>
+  </data>
+  <data name="User_AddNew_fieldCaption_deptCode" xml:space="preserve">
+    <value>Bộ phận</value>
+  </data>
+  <data name="User_AddNew_fieldCaption_isuserActive" xml:space="preserve">
+    <value>Tình trạng hoạt động</value>
+  </data>
+  <data name="User_AddNew_fieldCaption_rankCode" xml:space="preserve">
+    <value>Vị trí</value>
+  </data>
+  <data name="User_AddNew_fieldCaption_userEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="User_AddNew_fieldCaption_userFailedLoginAttempt" xml:space="preserve">
+    <value>Đăng nhập thất bại</value>
+  </data>
+  <data name="User_AddNew_fieldCaption_userID" xml:space="preserve">
+    <value>Tài khoản</value>
+  </data>
+  <data name="User_AddNew_fieldCaption_userName" xml:space="preserve">
+    <value>Tên người dùng</value>
+  </data>
+  <data name="User_AddNew_fieldCaption_userPassword" xml:space="preserve">
+    <value>Mật khẩu</value>
+  </data>
+  <data name="User_AddNew_SuccessMessg_param0" xml:space="preserve">
+    <value>Tài khoản </value>
+  </data>
+  <data name="User_AddNew_SuccessMessg_param1" xml:space="preserve">
+    <value> đã được khởi tạo thành công!</value>
+  </data>
+  <data name="User_AddNew_Unique_userEmail" xml:space="preserve">
+    <value>Email này đã được sử dụng</value>
+  </data>
+  <data name="User_AddNew_Unique_userID" xml:space="preserve">
+    <value>Tài khoản đã tồn tại</value>
+  </data>
+  <data name="User_AddNew_Validation_null_deptCode" xml:space="preserve">
+    <value>Không được để trống</value>
+  </data>
+  <data name="User_AddNew_Validation_null_passWord" xml:space="preserve">
+    <value>Không được để trống</value>
+  </data>
+  <data name="User_AddNew_Validation_null_rankCode" xml:space="preserve">
+    <value>Không được để trống</value>
+  </data>
+  <data name="User_AddNew_Validation_null_userEmail" xml:space="preserve">
+    <value>Không được để trống</value>
+  </data>
+  <data name="User_AddNew_Validation_null_userID" xml:space="preserve">
+    <value>Không được để trống</value>
+  </data>
+  <data name="User_AddNew_Validation_null_userName" xml:space="preserve">
+    <value>Không được để trống</value>
+  </data>
+  <data name="User_Edit_Common_Invalid" xml:space="preserve">
+    <value>Nhập liệu không hợp lệ</value>
+  </data>
+  <data name="User_Edit_Email_Accquired" xml:space="preserve">
+    <value>Email đã được dùng</value>
+  </data>
+  <data name="User_Edit_Invalid_ID" xml:space="preserve">
+    <value>Tài khoản không hợp lệ</value>
+  </data>
+  <data name="User_UpdatePassword_SuccessMessg_param0" xml:space="preserve">
+    <value>Mật khẩu của </value>
+  </data>
+  <data name="User_UpdatePassword_SuccessMessg_param1" xml:space="preserve">
+    <value> đã được cập nhật!</value>
+  </data>
+  <data name="validationFailed" xml:space="preserve">
+    <value>Đơn xin nghỉ không hợp lệ, vui lòng sửa ngay</value>
+  </data>
+  <data name="validationPassed" xml:space="preserve">
+    <value>Đơn xin nghỉ hợp lệ, vui lòng chờ phê duyệt</value>
+  </data>
+  <data name="validationStatus" xml:space="preserve">
+    <value>Kiểm tra hợp lệ</value>
+  </data>
+</root>
